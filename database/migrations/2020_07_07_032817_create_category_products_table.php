@@ -16,9 +16,10 @@ class CreateCategoryProductsTable extends Migration
         Schema::create('category_products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('category_products')->onDelete('CASCADE');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

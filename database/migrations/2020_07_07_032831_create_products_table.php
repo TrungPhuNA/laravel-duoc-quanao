@@ -18,12 +18,13 @@ class CreateProductsTable extends Migration
             $table->integer('supplier_id')->unsigned()->nullable();
             $table->integer('category_product_id')->unsigned()->nullable();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->double('price')->nullable();
             $table->longText('description')->nullable();
             $table->integer('quantities')->unsigned()->nullable();
             $table->string('size')->nullable();
             $table->string('image')->nullable();
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('CASCADE');
             $table->foreign('category_product_id')->references('id')->on('category_products')->onDelete('CASCADE');

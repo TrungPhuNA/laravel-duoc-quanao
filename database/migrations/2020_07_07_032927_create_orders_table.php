@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('employee_id')->unsigned()->nullable();
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->default(0);
             $table->datetime('delivery_date')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('CASCADE');

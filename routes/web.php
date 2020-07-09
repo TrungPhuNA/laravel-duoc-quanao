@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::group(['domain'=>'cms.ban-hang.test'],function(){
+	Route::namespace('Admin')->prefix('admin')->group(function () {
+	    Route::get('/', 'DashboardController@index')->name('admin.dashboard');
+	    Route::resource('product', 'ProductController')->except(['show']);
+	    Route::resource('category_product', 'CategoryProductController')->except(['show']);
+	});
 });

@@ -84,3 +84,7 @@
 .table th {
   border-bottom: 1px solid #dee2e6 !important;
 }
+
+.note {
+  color: #FF0000;
+}
