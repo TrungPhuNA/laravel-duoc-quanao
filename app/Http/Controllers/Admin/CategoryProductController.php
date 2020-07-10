@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategoryProductStoreRequest;
 use App\Http\Requests\CategoryProductUpdateRequest;
 use App\CategoryProduct;
+use App\Product;
+use Illuminate\Support\Str;
+use DB;
 
 class CategoryProductController extends Controller
 {
@@ -17,7 +20,8 @@ class CategoryProductController extends Controller
      */
     public function index()
     {
-        $categoryProduct = CategoryProduct::paginate(10);
+    	//lấy tất cả danh mục và phân trang 10 sản phẩm trên 1 trang
+        $categoryProduct = CategoryProduct::paginate(6);
         return View('backend.category_product.index',compact('categoryProduct'));
     }
 
@@ -28,6 +32,7 @@ class CategoryProductController extends Controller
      */
     public function create()
     {
+    	//lấy tất cả danh mục
         $categoryProduct = CategoryProduct::all();
         return View('backend.category_product.create',compact('categoryProduct'));
     }
@@ -38,17 +43,16 @@ class CategoryProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryProductCategoryStoreRequest $request)
+    public function store(CategoryProductStoreRequest $request)
     {
         $categoryProductModel                     = new CategoryProduct();
         $categoryProductModel->name               = $request->name;
-        $categoryProductModel->slug               = $request->slug;
-        $categoryProductModel->status             = $request->status;
+        $categoryProductModel->slug               = Str::slug($request->name, '-');
+        $categoryProductModel->status             = $request->status ? 1 : 0;
         $categoryProductModel->parent_id          = $request->parent_id;
-
         try {
             $categoryProductModel->save();
-            return redirect()->route('category_product.index');  
+            return redirect()->route('category_product.index');
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -63,9 +67,13 @@ class CategoryProductController extends Controller
      */
     public function edit($id)
     {
-        $categoryProductAll = CategoryProduct::all();
+    	//lấy tất cả danh mục
+        $categoryProductAll = CategoryProduct::where('parent_id' , '<>', $id)
+        					->orwhereNull('parent_id')
+        					->get();
+        //lấy tất cả danh mục ứng với id
         $categoryProduct   = CategoryProduct::find($id);
-        return View('backend.product_category.edit',compact('categoryProductAll','categoryProduct'));
+        return View('backend.category_product.edit',compact('categoryProductAll','categoryProduct'));
     }
 
     /**
@@ -77,14 +85,14 @@ class CategoryProductController extends Controller
      */
     public function update(CategoryProductUpdateRequest $request, $id)
     {
-        $categoryProduct                   		= CategoryProduct::find($id);
+        $categoryProduct                   	 = CategoryProduct::find($id);
         $categoryProduct->name               = $request->name;
-        $categoryProduct->slug               = $request->slug;
-        $categoryProduct->status             = $request->status;
+        $categoryProduct->slug               = Str::slug($request->name, '-');
+        $categoryProduct->status             = $request->status ? 1 : 0;
         $categoryProduct->parent_id          = $request->parent_id;
 
         try {
-            $categoryProductModel->save();
+            $categoryProduct->save();
             return redirect()->route('category_product.index');
         } catch (Exception $e) {
             die($e->getMessage());
@@ -99,27 +107,23 @@ class CategoryProductController extends Controller
      */
     public function destroy($id)
     {
-        $categoryProduct             = CategoryProduct::find($id);
-        $categoryProductAll           = CategoryProduct::all();
-        $categoryProduct->delete();
+    	DB::beginTransaction();
+        try {
+        	//gán khóa ngoại category_product_id bảng product là null
+            Product::join('category_products', 'category_products.id', '=', 'products.category_product_id')
+                ->where('category_products.id', $id)->update(['category_product_id' => null]);
+            //gán khóa ngoại category_product_id bảng product là null (trong trường hợp có thể loại con của thể laoij bị xóa)
+            Product::join('category_products', 'category_products.id', '=', 'products.category_product_id')
+                ->where('parent_id', $id)->update(['category_product_id' => null]);
+            //gán parent_id của thằng category con kế thừa thằng bị xóa về null
+            CategoryProduct::where('parent_id', $id)->update(['parent_id' => null]);
+            CategoryProduct::find($id)->delete();
 
-        foreach($categoryProductAll as $category)
-        {
-            if($category->parent_id == $categoryProduct->id)
-            {
-                $category->delete();
-                foreach($category->products as $product)
-                {
-                    $product->delete();
-                }
-            }
+            DB::commit();
+            return redirect()->route('category_product.index');
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return redirect()->route('category_product.index');
         }
-
-        foreach($categoryProduct->products as $product)
-        {
-            $product->delete();
-        }
-        
-        return redirect()->route('category_product.index'); 
     }
 }

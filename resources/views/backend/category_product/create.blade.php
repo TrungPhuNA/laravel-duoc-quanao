@@ -20,24 +20,13 @@
                 <form method="POST" action="{{route('category_product.store')}}" accept-charset="UTF-8" class="form-horizontal">
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name <span class="note">*</span></label>
+                        <label for="name" class="col-sm-2 col-form-label">Tên <span class="note">*</span></label>
 
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}">
                             @if ($errors && $errors->has('name'))
                                 <p class="text-danger text-xs error-message">{{ $errors->first('name') }}</p>
                             @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="slug" class="col-sm-2 col-form-label">Slug <span class="note">*</span></label>
-
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="slug" id="slug" value="{{old('slug')}}">
-                        @if ($errors && $errors->has('slug'))
-                            <p class="text-danger text-xs error-message">{{ $errors->first('slug') }}</p>
-                        @endif
                         </div>
                     </div>
 
@@ -66,10 +55,10 @@
                             <div class="col-sm-2">
                             </div>
                             <div class="col-sm-1">
-                                <button class="btn btn-default float-left"><a style="color:black" href="{{ route('category_product.index') }}">Cancel</a></button>
+                                <button class="btn btn-default float-left"><a style="color:black" href="{{ route('category_product.index') }}">Hủy</a></button>
                             </div>
                             <div class="col-sm-1">
-                                <button type="submit" class="btn btn-info">Confirm</button>
+                                <button type="submit" class="btn btn-info">Tạo mới</button>
                             </div>
                         </div>
                     <!-- </div> -->

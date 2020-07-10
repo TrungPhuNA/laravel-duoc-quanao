@@ -17,28 +17,17 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{route('category_product.update',1)}}" accept-charset="UTF-8" class="form-horizontal">
+                <form method="POST" action="{{route('category_product.update',$categoryProduct->id)}}" accept-charset="UTF-8" class="form-horizontal">
                     @csrf
                     @method('PATCH')
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name <span class="note">*</span></label>
+                        <label for="name" class="col-sm-2 col-form-label">Tên <span class="note">*</span></label>
 
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="name" id="name" value="{{$categoryProduct->name}}">
+                            <input type="text" class="form-control" name="name" id="name" value="{{ $categoryProduct->name }}">
                             @if ($errors && $errors->has('name'))
                                 <p class="text-danger text-xs error-message">{{ $errors->first('name') }}</p>
                             @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="slug" class="col-sm-2 col-form-label">Slug <span class="note">*</span></label>
-
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="slug" id="slug" value="{{$categoryProduct->slug}}">
-                        @if ($errors && $errors->has('slug'))
-                            <p class="text-danger text-xs error-message">{{ $errors->first('slug') }}</p>
-                        @endif
                         </div>
                     </div>
 
@@ -47,13 +36,15 @@
                         <div class="input-group date col-sm-4">
                             <select name="parent_id" id="parent_id" value="{{old('parent_id')}}" class="form-control">
                                 <option value="">Thể loại cha</option>
-                                @foreach($categoryProductAll as $cat)
-                                    @if($cat->id == $product_category->parent_id)
-                                        <option value="{{$cat->id}}" selected="selected">{{$cat->name}}</option>
-                                    @elseif($cat->name != $categoryProduct->name)
-                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
-                                    @endif
-                                @endforeach
+                                @if (!$categoryProductAll->isEmpty())
+                                    @foreach($categoryProductAll as $cat)
+                                        @if($cat->id == $categoryProduct->parent_id)
+                                            <option value="{{ $cat->id }}" selected="selected">{{ $cat->name }}</option>
+                                        @elseif($cat->name != $categoryProduct->name)
+                                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -62,10 +53,10 @@
                         <label class="col-sm-2 col-form-label">Hiển thị</label>
 
                         <div class="col-sm-10">
-                            <input name="status" type="checkbox" value="0" id="status" {{ $categoryProduct->status == 1 ? 'checked' : ''}}>
+                            <input name="status" type="checkbox" id="status" {{ $categoryProduct->status == 1 ? 'checked' : ''}}>
                         </div>
                     </div>
-
+                    <input type="hidden" name="category_product_id" value="{{ $categoryProduct->id }}">
                     <!-- <div class="form-group row"> -->
                         <div class="form-group row">
                             <div class="col-sm-2">

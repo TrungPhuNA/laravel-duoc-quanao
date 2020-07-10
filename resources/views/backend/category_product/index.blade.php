@@ -12,57 +12,83 @@
                             <h3 class="card-title">Danh sách loại sản phẩm</h3>
 
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                        title="Collapse">
-                                    <i class="fas fa-minus"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
-                                        title="Remove">
-                                    <i class="fas fa-times"></i></button>
+                                <a class="btn btn-success btn-sm" href="{{ route('category_product.create') }}"><span
+                                    class="fas fa-plus"></span> Create </a>
                             </div>
+                            @if (!$categoryProduct->isEmpty())
+                            <div class="form-search">
+                                <form class="form-inline" action="{{ route('category_product.index') }}" method="get">
+                                  <div class="form-row align-items-center margin-auto">
+                                    <div class="form-group mr-2 mb-2">
+                                      <label for="name" class="sr-only">Tên thể loại</label>
+                                      <input type="text" name="name" value="ahaa" class="form-control" id="name"
+                                             placeholder="Tên thể loại">
+                                    </div>
+                                    <button type="submit" class="btn-search btn btn-primary mb-2"><span
+                                          class="fas fa-search"></span> Tìm kiếm </button>
+                                  </div>
+                                </form>
+                            </div>
+                            @endif
                         </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap ">
-                                <thead>
-                                <tr>
-                                    <th>Stt</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Hiển thị</th>
-                                    <th>Chỉnh sửa</th>
-                                    <th>Xóa</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input type="checkbox" name="item"></td>
-                                    <td>name</td>
-                                    <td>slug</td>
-                                    <td>
-                                        <span class="badge bg-success">có</span>
-                                    </td>
-                                    <td><a class="btn btn-primary" href="{{ route('category_product.edit', 1) }}"><i
-                                                    class="fa fa-pencil"></i>Edit</a></td>
-                                    <td><a id="1" class="btn btn-danger btn-sm btn-delete" href="#"><i
-                                        class="fas fa-trash"></i>Delete
-                                        <form method="post" action="{{ route('category_product.destroy', 1) }}"
-                                              id="form_1">
-                                          {{ csrf_field() }}
-                                        </form>
-                                    </a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">»</a></li>
-                            </ul>
-                        </div>
+                        @if (!$categoryProduct->isEmpty())
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap ">
+                                    <thead>
+                                    <tr>
+                                        <th>Stt</th>
+                                        <th>Tên</th>
+                                        <th>Slug</th>
+                                        <th>Thể loại cha</th>
+                                        <th>Hiển thị</th>
+                                        <th>Chỉnh sửa</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                   @foreach($categoryProduct as $category)
+                                        <tr>
+                                            <td><input type="checkbox" id="check_{{$category->id}}" name="check"></td>
+                                            <td>{{ $category->name }}</td>
+                                            <td>{{ $category->slug }}</td>
+                                            <td>{{ $category->parent_id ? $category->category_product_parent->name : '' }}</td>
+                                            <td>
+                                                <span class="badge bg-success">
+                                                    @if ($category->status)
+                                                        Có
+                                                    @else
+                                                        Không
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('category_product.edit', $category->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i> Sửa
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a id="{{$category->id}}" class="btn btn-danger btn-sm btn-delete" href="#">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                    <form method="post" action="{{ route('category_product.destroy', $category->id) }}"
+                                                          id="form_{{$category->id}}">
+                                                      @csrf
+                                                      @method('DELETE')
+                                                    </form>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            @if($categoryProduct->hasPages())
+                              <div class="pagination text-center mb-4">
+                                {{ $categoryProduct->links() }}
+                              </div>
+                            @endif
+                        @endif
                     </div>
                     <!-- /.card -->
                 </div>
@@ -70,5 +96,5 @@
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
-    @include('backend.common.modal_delete', ['messageConfirm' => 'bạn có muốn xóa'])
+    @include('backend.common.modal_delete', ['messageConfirm' => 'Bạn có muốn xóa'])
 @endsection

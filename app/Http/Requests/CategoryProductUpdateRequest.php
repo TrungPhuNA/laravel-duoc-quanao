@@ -25,19 +25,14 @@ class CategoryProductUpdateRequest extends FormRequest
     {
         $id = $this->request->get('category_product_id');
         return [
-            'name'  => 'bail|required|min:6|unique:category_products,name,'.$id,
-            'slug'  => 'bail|required|min:6|unique:category_products,slug,'.$id,
+            'name'  => 'bail|required|unique:category_products,name,'.$id
         ];
     }
 
     public function messages(){
         return [
-            'name.required'  => 'Name is required',
-            'name.min'       => 'Name is at least 6 characters long',
-            'name.unique'    => 'Name already exists',
-            'slug.required'  => 'Slug is required',
-            'slug.min'       => 'Slug is at least 6 characters long',
-            'slug.unique'    => 'Slug already exists',
-        ];     
+            'name.required'  => 'Tên không được trống',
+            'name.unique'    => 'Tên đã tồn tại',
+        ];
     }
 }
