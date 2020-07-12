@@ -15,13 +15,12 @@
                                 <a class="btn btn-success btn-sm" href="{{ route('category_product.create') }}"><span
                                     class="fas fa-plus"></span> Create </a>
                             </div>
-                            @if (!$categoryProduct->isEmpty())
                             <div class="form-search">
                                 <form class="form-inline" action="{{ route('category_product.index') }}" method="get">
                                   <div class="form-row align-items-center margin-auto">
                                     <div class="form-group mr-2 mb-2">
                                       <label for="name" class="sr-only">Tên thể loại</label>
-                                      <input type="text" name="name" value="ahaa" class="form-control" id="name"
+                                      <input type="text" name="name" value="{{ $request->get('name') }}" class="form-control" id="name"
                                              placeholder="Tên thể loại">
                                     </div>
                                     <button type="submit" class="btn-search btn btn-primary mb-2"><span
@@ -29,27 +28,26 @@
                                   </div>
                                 </form>
                             </div>
-                            @endif
                         </div>
-                        @if (!$categoryProduct->isEmpty())
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-hover text-nowrap ">
-                                    <thead>
-                                    <tr>
-                                        <th>Stt</th>
-                                        <th>Tên</th>
-                                        <th>Slug</th>
-                                        <th>Thể loại cha</th>
-                                        <th>Hiển thị</th>
-                                        <th>Chỉnh sửa</th>
-                                        <th>Xóa</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                   @foreach($categoryProduct as $category)
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap ">
+                                <thead>
+                                <tr>
+                                    <th>Stt</th>
+                                    <th>Tên</th>
+                                    <th>Slug</th>
+                                    <th>Thể loại cha</th>
+                                    <th>Hiển thị</th>
+                                    <th>Chỉnh sửa</th>
+                                    <th>Xóa</th>
+                                </tr>
+                                </thead>
+                                <tbody>        
+                                @if (!$categoryProduct->isEmpty())
+                                    @php $i = 1 @endphp
+                                    @foreach($categoryProduct as $category)
                                         <tr>
-                                            <td><input type="checkbox" id="check_{{$category->id}}" name="check"></td>
+                                            <td>{{ $i }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->slug }}</td>
                                             <td>{{ $category->parent_id ? $category->category_product_parent->name : '' }}</td>
@@ -78,16 +76,17 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        @php $i++ @endphp
                                     @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                            @if($categoryProduct->hasPages())
-                              <div class="pagination text-center mb-4">
-                                {{ $categoryProduct->links() }}
-                              </div>
-                            @endif
+                                 @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        @if($categoryProduct->hasPages())
+                          <div class="pagination text-center mb-4">
+                            {{ $categoryProduct->links() }}
+                          </div>
                         @endif
                     </div>
                     <!-- /.card -->

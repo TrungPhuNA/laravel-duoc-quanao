@@ -5,16 +5,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Edit</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
-                            title="Remove">
-                        <i class="fas fa-times"></i></button>
-                </div>
+                <h3 class="card-title">Chỉnh sửa</h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="{{route('category_product.update',$categoryProduct->id)}}" accept-charset="UTF-8" class="form-horizontal">
@@ -57,18 +48,17 @@
                         </div>
                     </div>
                     <input type="hidden" name="category_product_id" value="{{ $categoryProduct->id }}">
-                    <!-- <div class="form-group row"> -->
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                            </div>
-                            <div class="col-sm-1">
-                                <button class="btn btn-default float-left"><a style="color:black" href="{{ route('category_product.index') }}">Cancel</a></button>
-                            </div>
-                            <div class="col-sm-1">
-                                <button type="submit" class="btn btn-info">Confirm</button>
-                            </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
                         </div>
-                    <!-- </div> -->
+                        <div class="col-sm-1">
+                            <button class="btn btn-default float-left"><a style="color:black" href="{{ route('category_product.index') }}">Hủy</a></button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="submit" class="btn btn-info">Cập nhật</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

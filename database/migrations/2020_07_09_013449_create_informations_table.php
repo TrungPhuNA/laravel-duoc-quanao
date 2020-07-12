@@ -16,6 +16,7 @@ class CreateInformationsTable extends Migration
         Schema::create('informations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('content');
             $table->softDeletes();
             $table->timestamps();

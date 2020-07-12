@@ -18,11 +18,15 @@ class CategoryProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-    	//lấy tất cả danh mục và phân trang 10 sản phẩm trên 1 trang
-        $categoryProduct = CategoryProduct::paginate(6);
-        return View('backend.category_product.index',compact('categoryProduct'));
+        if (isset($request->name)) {
+            $categoryProduct = CategoryProduct::where('category_products.name', 'like', '%' . trim($request->name) . '%')->paginate(6);
+        } else {
+            $categoryProduct = CategoryProduct::paginate(6);
+        }
+
+        return View('backend.category_product.index',compact('categoryProduct', 'request'));
     }
 
     /**

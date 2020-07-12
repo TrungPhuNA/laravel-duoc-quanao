@@ -7,5 +7,4 @@
 <!-- OPTIONAL SCRIPTS -->
 <script src=" {{ asset('backend_asset/js/main.js') }}"></script>
 
-@yield('js-custom.lib')
 @yield('js-custom.script')
