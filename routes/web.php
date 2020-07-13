@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('frontend', function () {
+    return view('frontend/home');
+});
 
 Route::group(['domain'=>'cms.ban-hang.test'],function(){
 	Route::namespace('Admin')->prefix('admin')->middleware(['auth'])->group(function () {
