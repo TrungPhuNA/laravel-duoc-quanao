@@ -16,7 +16,7 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employee_id')->unsigned()->nullable();
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('CASCADE');
+            $table->foreign('employee_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->timestamps();
             $table->softDeletes();
         });

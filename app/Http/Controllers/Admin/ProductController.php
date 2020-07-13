@@ -9,8 +9,11 @@ use App\Http\Requests\ProductUpdateRequest;
 use App\CategoryProduct;
 use App\Product;
 use App\Supplier;
+use App\Coupon;
+use App\Coupon_Detail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Image;
 use DB;
 
@@ -53,7 +56,10 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $productModel                      = new Product();
+        $productModel      = new Product();
+        $couponModel       = new Coupon();
+        $couponDetailModel = new Coupon_Detail();
+
         $productModel->name                = $request->name;
         $productModel->slug                = Str::slug($request->name, '-');
         $productModel->price               = $request->price;
@@ -71,14 +77,26 @@ class ProductController extends Controller
             $imagePath = $imagePath[2];
             $productModel->image = $imagePath;
         }
-
+        DB::beginTransaction();
         try {
-            $productModel->save();
+            // thêm sản phẩm bảng product
+            $product = $productModel->save();
+            // thêm sản phẩm bảng nhập phiếu hàng
+            $couponModel->employee_id = Auth::user()->id;
+            $coupon = $couponModel->save();
+            // thêm sản phẩm bảng nhập phiếu hàng chi tiết
+            $couponDetailModel->coupon_id = $coupon->id;
+            $couponDetailModel->product_id = $product->id;
+            $couponDetailModel->price = $request->price;
+            $couponDetailModel->quantities = $request->quantities;
+            $couponDetailModel->save();
+
+            DB::commit();
             return redirect()->route('product.index');
         } catch (Exception $e) {
+            DB::rollback();
             die($e->getMessage());
         }
-        
     }
 
     /**

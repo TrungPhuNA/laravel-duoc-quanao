@@ -24,8 +24,12 @@ Route::group(['domain'=>'cms.ban-hang.test'],function(){
 		    Route::resource('supplier', 'SuppliersController')->except(['show']);
 		    Route::resource('information', 'InformationsController')->except(['show']);
 		    Route::resource('user', 'UsersController')->except(['show']);
+		    Route::get('/contact', 'ContactsController@index')->name('contact.index');
+		    Route::get('/counp', 'CouponsController@index')->name('counp.index');
+		    Route::delete('/counp/{category}', 'CouponsController@destroy')->name('counp.destroy');
+		    Route::get('/counp/counp_detail/{counp_id}', 'CouponsController@detail')->name('counp.detail');
 		});
-		Route::middleware(['is_employee'])->group(function () {
+		Route::middleware(['is_role_access'])->group(function () {
 		    Route::resource('order', 'OrdersController')->except(['show']);
 		});
 	});
