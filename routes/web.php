@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('frontend', function () {
-    return view('frontend/home');
+Route::group(['domain'=>'ban-hang.test'],function(){
+	Route::get('/', function () {
+	    return view('frontend/Home');
+	});
 });
 
 Route::group(['domain'=>'cms.ban-hang.test'],function(){

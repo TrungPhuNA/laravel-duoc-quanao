@@ -10,13 +10,13 @@
             <div class="fr-slider">
                 <ul class="slides">
                     <li>
-                        <img src="img/slider/slide2.jpg" height="480" width="1140"  alt="">
+                        <img src="{{ asset('frontend_asset/img/slider/slide2.jpg') }}" height="480" width="1140"  alt="">
                     </li>
                     <li>
-                        <img src="img/slider/slide3.png" height="480" width="1140"  alt="">
+                        <img src="{{ asset('frontend_asset/img/slider/slide3.png') }}" height="480" width="1140"  alt="">
                     </li>
                     <li>
-                        <img src="img/slider/slide4.jpg" height="480" width="1140"  alt="">
+                        <img src="{{ asset('frontend_asset/img/slider/slide4.jpg') }}" height="480" width="1140"  alt="">
                     </li>
                 </ul>
             </div>

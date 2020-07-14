@@ -1,26 +1,34 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-  <!-- Left navbar links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{ route('product.index') }}" class="nav-link">Home</a>
-    </li>
-  </ul>
+<div class="header-middle">
+    <div class="container header-middle-cont">
+        <div class="toplogo">
+            <a href="index.html">
+                <img src="{{ asset('frontend_asset/img/logo.png') }}" alt="AllStore - MultiConcept eCommerce Template">
+            </a>
+        </div>
+        <div class="shop-menu">
+            <ul>
 
-  <!-- Right navbar links -->
-  <ul class="navbar-nav ml-auto">
-    <!-- Notifications Dropdown Menu -->
-    <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-user-circle"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <a href="{{ route('auth.logout') }}" class="dropdown-item">
-          <i class="fas fa-sign-out-alt"></i> &nbsp; Logout
-        </a>
-      </div>
-    </li>
-  </ul>
-</nav>
+                <li class="topauth">
+                    <a href="auth.html">
+                        <i class="fa fa-lock"></i>
+                        <span class="shop-menu-ttl">Đăng ký</span>
+                    </a>
+                    <a href="auth.html">
+                        <span class="shop-menu-ttl">Đăng nhập</span>
+                    </a>
+                </li>
+
+                <li>
+                    <div class="h-cart">
+                        <a href="cart.html">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="shop-menu-ttl">Giỏ hàng</span>
+                            (<b>0</b>)
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

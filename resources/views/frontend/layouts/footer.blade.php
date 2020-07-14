@@ -3,7 +3,7 @@
         <div class="row">
             <div class="f-menu">
                 <a href="index.html">
-                    <img src="img/logo-b.png" alt="AllStore - MultiConcept eCommerce Responsive HTML5 Template">
+                    <img src="{{ asset('frontend_asset/img/logo-b.png') }}" alt="AllStore - MultiConcept eCommerce Responsive HTML5 Template">
                     </br> Chuyên quẩn áo nam
                 </a>
             </div>
