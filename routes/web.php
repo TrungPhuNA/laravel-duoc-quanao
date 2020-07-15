@@ -12,9 +12,7 @@
 */
 
 Route::group(['domain'=>'ban-hang.test'],function(){
-	Route::get('/', function () {
-	    return view('frontend/Home');
-	});
+	Route::get('/', 'HomeController@index')->name('client.home');
 });
 
 Route::group(['domain'=>'cms.ban-hang.test'],function(){
@@ -35,8 +33,8 @@ Route::group(['domain'=>'cms.ban-hang.test'],function(){
 		    Route::resource('order', 'OrdersController')->except(['show']);
 		});
 	});
+	Auth::routes(['register' => false]);
+	Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
 });
-Auth::routes(['register' => false]);
-Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

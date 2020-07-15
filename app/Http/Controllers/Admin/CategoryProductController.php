@@ -21,9 +21,9 @@ class CategoryProductController extends Controller
     public function index(Request $request)
     {
         if (isset($request->name)) {
-            $categoryProduct = CategoryProduct::where('category_products.name', 'like', '%' . trim($request->name) . '%')->paginate(6);
+            $categoryProduct = CategoryProduct::where('category_products.name', 'like', '%' . trim($request->name) . '%')->paginate(13);
         } else {
-            $categoryProduct = CategoryProduct::paginate(6);
+            $categoryProduct = CategoryProduct::paginate(13);
         }
 
         return View('backend.category_product.index',compact('categoryProduct', 'request'));

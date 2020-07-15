@@ -52,7 +52,7 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td width="150" height="100px">
-                                                <img src="{{Storage::url('images/'.$pro->image)}}" width="150px" height="100px">
+                                                <img src="{{ Storage::url('images/'.$pro->image) }}" width="150px" height="100px">
                                             </td>
                                             <td>{{ $pro->name }}</td>
                                             <td>{{ $pro->category_product_id ? $pro->category_product->name : '' }}</td>

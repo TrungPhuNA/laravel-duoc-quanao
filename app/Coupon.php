@@ -10,6 +10,10 @@ class Coupon extends Model
     use SoftDeletes;
     public $table = "coupons";
 
+    protected $fillable = [
+        'employee_id'
+    ];
+
     public function user(){
     	return $this->belongsTo('App\User','employee_id');
     }

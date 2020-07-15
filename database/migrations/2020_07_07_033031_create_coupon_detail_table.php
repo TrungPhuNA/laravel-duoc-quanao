@@ -19,7 +19,7 @@ class CreateCouponDetailTable extends Migration
             $table->integer('product_id')->unsigned()->nullable();
             $table->double('price')->nullable();
             $table->integer('quantities')->unsigned()->nullable();
-            $table->foreign('coupon_id')->references('id')->on('orders')->onDelete('CASCADE');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('CASCADE');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->timestamps();
             $table->softDeletes();

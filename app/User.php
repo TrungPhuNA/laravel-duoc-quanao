@@ -44,34 +44,4 @@ class User extends Authenticatable
         1 => 'Admin',
         2 => 'Nhân viên',
     ];
-
-    /**
-     * is admin
-     *
-     * @return bool
-     */
-    protected function isAdmin()
-    {
-        return $this->type_user == 1;
-    }
-
-    /**
-     * is admin school
-     *
-     * @return bool
-     */
-    protected function isEmployee()
-    {
-        return $this->type_user == 2;
-    }
-
-    /**
-     * is admin school
-     *
-     * @return bool
-     */
-    protected function isCustomer()
-    {
-        return $this->type_user == 0;
-    }
 }

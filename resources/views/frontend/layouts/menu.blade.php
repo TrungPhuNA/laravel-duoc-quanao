@@ -6,73 +6,30 @@
                 <div class="topcatalog">
                     <a class="topcatalog-btn" href="catalog-gallery.html"><span>Tất cả</a>
                     <ul class="topcatalog-list">
+                        @if (isset($infor['gioi-thieu']))
                         <li>
                             <a href="catalog-gallery.html">
-                                Áo
-                            </a>
-                            <i class="fa fa-angle-right"></i>
-                            <ul>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Áo khoác
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Áo thu đông
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Áo sơ mi
-                                    </a>
-                                    <i class="fa fa-angle-right"></i>
-                                    <ul>
-                                        <li>
-                                            <a href="catalog-gallery.html">
-                                                Áo ngắn tay
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="catalog-gallery.html">
-                                                Áo dài tay
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="catalog-gallery.html">
-                                Quần
-                            </a>
-                            <i class="fa fa-angle-right"></i>
-                            <ul>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Quần âu
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Quần kaki
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="catalog-gallery.html">
-                                        Quần bò
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="catalog-gallery.html">
-                                Ví
+                                {{ $infor['gioi-thieu']['title'] }}
                             </a>
                         </li>
+                        @endif
+                        @if (isset($infor['huong-dan-dat-hang']))
                         <li>
                             <a href="catalog-gallery.html">
-                                Giày dép
+                                {{ $infor['huong-dan-dat-hang']['title'] }}
+                            </a>
+                        </li>
+                        @endif
+                        @if (isset($infor['chinh-sach-doi-hang']))
+                        <li>
+                            <a href="catalog-gallery.html">
+                                {{ $infor['chinh-sach-doi-hang']['title'] }}
+                            </a>
+                        </li>
+                        @endif
+                        <li>
+                            <a href="catalog-gallery.html">
+                                Liên hệ
                             </a>
                         </li>
                     </ul>
@@ -83,25 +40,26 @@
                 <button type="button" class="mainmenu-btn">Menu</button>
 
                 <ul class="mainmenu">
-                    <li>
-                        <a href="index.html">
-                            Trang chủ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="contacts.html" class="active">
-                            Liên hệ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="orders.html">
-                            Đơn hàng
-                        </a>
-                    </li>
-                    <li class="mainmenu-more">
-                        <span>...</span>
-                        <ul class="mainmenu-sub"></ul>
-                    </li>
+                    @foreach($menu_parent as $menu)
+                        <li class="menu-item-has-children">
+                            <a href="#">
+                            {{$menu->name}}
+                            @if($menu->menu_children)
+                                {{$menu->name}} <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    @foreach($menu->menu_children as $m)
+                                        <li>
+                                            <a href="contacts.html">
+                                                {{$m->name}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
                 <!-- Main menu - end -->
 

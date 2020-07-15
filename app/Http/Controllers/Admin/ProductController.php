@@ -56,18 +56,16 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $productModel      = new Product();
-        $couponModel       = new Coupon();
         $couponDetailModel = new Coupon_Detail();
 
-        $productModel->name                = $request->name;
-        $productModel->slug                = Str::slug($request->name, '-');
-        $productModel->price               = $request->price;
-        $productModel->description         = $request->description;
-        $productModel->quantities          = $request->quantities;
-        $productModel->status              = $request->status ? 1 : 0;
-        $productModel->category_product_id = $request->category_product_id ? $request->category_product_id : null;
-        $productModel->supplier_id         = $request->supplier_id ? $request->supplier_id : null;
+        $productInput['name']                = $request->name;
+        $productInput['slug']                = Str::slug($request->name, '-');
+        $productInput['price']               = $request->price;
+        $productInput['description']         = $request->description;
+        $productInput['quantities']          = $request->quantities;
+        $productInput['status']              = $request->status ? 1 : 0;
+        $productInput['category_product_id'] = $request->category_product_id ? $request->category_product_id : null;
+        $productInput['supplier_id']         = $request->supplier_id ? $request->supplier_id : null;
 
         if ($request->hasFile('image')){
             $imagePath = $request->file('image')->store('public/images');
@@ -75,15 +73,15 @@ class ProductController extends Controller
             Storage::put($imagePath,$image);
             $imagePath = explode('/',$imagePath);
             $imagePath = $imagePath[2];
-            $productModel->image = $imagePath;
+            $productInput['image'] = $imagePath;
         }
         DB::beginTransaction();
         try {
             // thêm sản phẩm bảng product
-            $product = $productModel->save();
+            $product = Product::create($productInput);
             // thêm sản phẩm bảng nhập phiếu hàng
-            $couponModel->employee_id = Auth::user()->id;
-            $coupon = $couponModel->save();
+            $couponInput['employee_id'] = Auth::user()->id;
+            $coupon = Coupon::create($couponInput);
             // thêm sản phẩm bảng nhập phiếu hàng chi tiết
             $couponDetailModel->coupon_id = $coupon->id;
             $couponDetailModel->product_id = $product->id;
