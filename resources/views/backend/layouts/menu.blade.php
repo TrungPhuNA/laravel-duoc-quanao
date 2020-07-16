@@ -48,14 +48,6 @@
           </ul>
         </li>
       
-        <li class="nav-item has-treeview">
-          <a href="{{ route('counp.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Phiếu nhập hàng
-            </p>
-          </a>
-        </li>
         @endif
         @if(Auth::user()->role == 1 || Auth::user()->role == 2)
         <li class="nav-item has-treeview">

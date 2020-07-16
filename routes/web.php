@@ -13,6 +13,10 @@
 
 Route::group(['domain'=>'ban-hang.test'],function(){
 	Route::get('/', 'HomeController@index')->name('client.home');
+	Route::get('/product/{id}', 'ProductController@detail')->name('client.product_detail');
+	Route::get('/contact', 'ContactController@create')->name('client.contact_create');
+	Route::get('/login', 'LoginController@create')->name('client.login_create');
+	Route::get('/category_product/{id}', 'ProductCategoryController@detail')->name('client.category_producte_detail');
 });
 
 Route::group(['domain'=>'cms.ban-hang.test'],function(){

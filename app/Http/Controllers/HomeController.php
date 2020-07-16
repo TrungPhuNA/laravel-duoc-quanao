@@ -7,7 +7,7 @@ use App\CategoryProduct;
 use App\Product;
 use App\Information;
 
-class HomeController extends Controller
+class HomeController extends MenuController
 {
     /**
      * Show the application dashboard.
@@ -16,33 +16,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $menus = CategoryProduct::all();
-        $menu_parent = $menus->where('parent_id',null);
-        $informations = Information::all();
-        $product = Product::paginate(12);
-        $category = [];
+        $productViews = Product::orderBy('quantity_access', 'DESC')->take(6)->get();
+        $productNews  = Product::paginate(8);
+        $productSale  = Product::orderBy('quantity_sell', 'DESC')->take(8)->get();
 
-        if (!$menu_parent->isEmpty()) {
-            foreach($menu_parent as $menu){
-                $myArray = [];
-                foreach($menus as $m){
-                    if($menu->id == $m->parent_id){
-                        array_push($myArray,$m);
-                    }
-                }
-                $menu->menu_children=$myArray;
-            }
-        }
+        $menu_parent = self::getMenus();
 
-        $infor = [];
-        if (!$informations->isEmpty()) {
-            foreach ($informations as $inf) {
-                $infor[$inf->slug]['id'] = $inf->id;
-                $infor[$inf->slug]['title'] = $inf->title;
-                $infor[$inf->slug]['content'] = $inf->content;
-            }
-        }
+        $infor = self::getInforShop();
 
-        return view('frontend/home', compact('menu_parent', 'infor', 'product'));
+        return view('frontend/home', compact('menu_parent', 'infor', 'productNews', 'productViews', 'productSale'));
     }
 }
