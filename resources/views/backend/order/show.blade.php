@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('title') Danh sách đơn hàng @endsection
+@section('title') Chi tiết đơn hàng @endsection
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -9,42 +9,36 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách đơn hàng</h3>
+                            <h3 class="card-title">Chi tiết đơn hàng</h3>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap ">
                                 <thead>
                                 <tr>
                                     <th>Stt</th>
-                                    <th>Tên KH</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Chi tiết</th>
-                                    <th>Ngày tạo</th>
+                                    <th>Sản phẩm</th>
+                                    <th>SỐ lượng</th>
+                                    <th>Giá tiền</th>
+                                    <th>Thành tiền</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if (!$transactions->isEmpty())
+                                @if (!$orders->isEmpty())
                                     @php $i = 1 @endphp
-                                    @foreach($transactions as $item)
+                                    @foreach($orders as $item)
                                         <tr>
                                             <td>{{ $i }}</td>
-                                            <td>{{ $item->user->name ?? "" }}</td>
-                                            <td>{{ number_format($item->tr_total,0,',','.') }} VNĐ</td>
-                                            <td><a target="_blank" href="{{ route('order.show', $item->id) }}">Chi tiết</a></td>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->product->name ?? "" }}</td>
+                                            <td>{{ $item->quantities }}</td>
+                                            <td>{{ number_format($item->product->price ?? 0,0,',','.') }} VNĐ</td>
+                                            <td>{{ number_format($item->quantities * $item->product->price ?? 0,0,',','.') }} VNĐ</td>
                                         </tr>
                                         @php $i++ @endphp
                                     @endforeach
-                                 @endif
+                                @endif
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
-                        @if($transactions->hasPages())
-                          <div class="pagination text-center mb-4">
-                            {{ $transactions->links() }}
-                          </div>
-                        @endif
                     </div>
                     <!-- /.card -->
                 </div>

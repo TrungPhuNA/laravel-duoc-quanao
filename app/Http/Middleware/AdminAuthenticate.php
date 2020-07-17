@@ -20,6 +20,7 @@ class AdminAuthenticate
         if (!$user || $user->role != 1) {
             abort(403);
         }
+
         return $next($request);
     }
 }

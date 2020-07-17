@@ -10,6 +10,6 @@ class Transaction extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'tr_user_id','id');
+        return $this->belongsTo(User::class,'tr_user_id');
     }
 }
