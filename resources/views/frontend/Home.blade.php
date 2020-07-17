@@ -38,13 +38,13 @@
                             @foreach ($productSale as $proSale)
                                 <li class="prod-i">
                                     <div class="prod-i-top">
-                                        <a href="product.html" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$proSale->image) }}" alt="Aspernatur excepturi rem"><!-- NO SPACE --></a>
+                                        <a href="{{ route('client.product_detail', $proSale->id) }}" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$proSale->image) }}" alt="Aspernatur excepturi rem"><!-- NO SPACE --></a>
                                         <p class="prod-i-addwrap">
                                             <a href="#" class="prod-i-add">Thêm giỏ hàng</a>
                                         </p>
                                     </div>
                                     <h3>
-                                        <a href="product.html">{{ $proSale->name }}</a>
+                                        <a href="{{ route('client.product_detail', $proSale->id) }}">{{ $proSale->name }}</a>
                                     </h3>
                                     <p class="prod-i-price">
                                         <b>{{ $proSale->price }}&nbsp;đ</b>
@@ -70,11 +70,11 @@
                     @foreach ($productNews as $proNew)
                         <div class="prod-i">
                             <div class="prod-i-top">
-                                <a href="product.html" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$proNew->image) }}" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
+                                <a href="{{ route('client.product_detail', $proNew->id) }}" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$proNew->image) }}" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
                                 <a href="#" class="prod-i-buy">Thêm giỏ hàng</a>
                             </div>
                             <h3>
-                                <a href="product.html">{{ $proNew->name }}</a>
+                                <a href="{{ route('client.product_detail', $proNew->id) }}">{{ $proNew->name }}</a>
                             </h3>
                             <p class="prod-i-price">
                                 <b>{{ $proNew->price }}&nbsp;đ</b>
@@ -99,11 +99,11 @@
                     @if(!$productViews->isEmpty())
                         @foreach ($productViews as $proview)
                             <li class="discounts-i">
-                                <a href="product.html" class="discounts-i-img">
+                                <a href="{{ route('client.product_detail', $proview->id) }}" class="discounts-i-img">
                                     <img src="{{ Storage::url('images/'.$proview->image) }}" alt="Dicta doloremque">
                                 </a>
                                 <h3 class="discounts-i-ttl">
-                                    <a href="product.html">{{ $proview->name }}</a>
+                                    <a href="{{ route('client.product_detail', $proview->id) }}">{{ $proview->name }}</a>
                                 </h3>
                                 <p class="discounts-i-price">
                                     <b>{{ $proview->price }}&nbsp;đ</b>

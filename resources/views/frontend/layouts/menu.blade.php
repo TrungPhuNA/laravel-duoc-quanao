@@ -4,7 +4,7 @@
 
                 <!-- Catalog menu - start -->
                 <div class="topcatalog">
-                    <a class="topcatalog-btn" href="catalog-gallery.html"><span>Tất cả</a>
+                    <a class="topcatalog-btn" href="catalog-gallery.html"><span>Tất cả</span></a>
                     <ul class="topcatalog-list">
                         @if (isset($infor['gioi-thieu']))
                         <li>
@@ -50,7 +50,7 @@
                                 <ul class="sub-menu">
                                     @foreach($menu->menu_children as $m)
                                         <li>
-                                            <a href="contacts.html">
+                                            <a href="{{ route('client.category_producte_detail', $m->id) }}" title="{{$m->name}}">
                                                 {{$m->name}}
                                             </a>
                                         </li>

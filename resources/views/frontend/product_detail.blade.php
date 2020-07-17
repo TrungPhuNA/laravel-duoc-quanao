@@ -7,7 +7,7 @@
 
         <ul class="b-crumbs">
             <li>
-                <a href="index.html">
+                <a href="{{ route('client.home') }}">
                     Trang chủ
                 </a>
             </li>
@@ -63,7 +63,7 @@
                         <a href="#" class="prod-minus"><i class="fa fa-angle-down"></i></a>
                     </p>
                     <p class="prod-addwrap">
-                        <a href="#" class="prod-add" rel="nofollow">Thêm giỏ hàng</a>
+                        <a href="{{ route('get.shopping.add', $productDetail->id) }}" class="prod-add" rel="nofollow">Thêm giỏ hàng</a>
                     </p>
                     </br>
                 </div>
@@ -96,17 +96,17 @@
                     <li class="prod-rel-wrap">
                         @foreach($productRelated as $proRelated)
                             <div class="prod-rel">
-                                <a href="product.html" class="prod-rel-img">
+                                <a href="{{ route('client.product_detail', $proRelated->id) }}" class="prod-rel-img">
                                     <img src="{{ Storage::url('images/'.$proRelated->image) }}" alt="Adipisci aperiam commodi">
                                 </a>
                                 <div class="prod-rel-cont">
-                                    <h3><a href="product.html">{{ $productDetail->name }}</a></h3>
+                                    <h3><a href="{{ route('client.product_detail', $proRelated->id) }}">{{ $productDetail->name }}</a></h3>
                                     <p class="prod-rel-price">
                                         <b>{{ $productDetail->price }}&nbsp;đ</b>
                                     </p>
                                     <div class="prod-rel-actions">
                                         <p class="prod-i-addwrap">
-                                            <a title="Thêm giỏ hàng" href="#" class="prod-i-add"><i class="fa fa-shopping-cart"></i></a>
+                                            <a title="Thêm giỏ hàng" href="{{ route('get.shopping.add', $proRelated->id) }}" class="prod-i-add"><i class="fa fa-shopping-cart"></i></a>
                                         </p>
                                     </div>
                                 </div>

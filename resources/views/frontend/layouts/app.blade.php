@@ -20,6 +20,7 @@
 		<!-- footer e -->
 		<!-- script s -->
 		@include('frontend.layouts.script')
+        @yield('script')
 		<!-- script e -->
 	</body>
 </html>

@@ -7,7 +7,7 @@
 
         <ul class="b-crumbs">
             <li>
-                <a href="index.html">
+                <a href="{{ route('client.home') }}">
                     Trang chủ
                 </a>
             </li>
@@ -141,11 +141,11 @@
                     @foreach($products as $pro)
                     <div class="prod-i">
                         <div class="prod-i-top">
-                            <a href="product.html" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$pro->image) }}" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
+                            <a href="{{ route('client.product_detail', $pro->id) }}" class="prod-i-img"><!-- NO SPACE --><img src="{{ Storage::url('images/'.$pro->image) }}" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
                             <a href="#" class="prod-i-buy">Thêm giỏ hàng</a>
                         </div>
                         <h3>
-                            <a href="product.html">{{ $pro->name }}</a>
+                            <a href="{{ route('client.product_detail', $pro->id) }}">{{ $pro->name }}</a>
                         </h3>
                         <p class="prod-i-price">
                             <b>{{ $pro->price }}&nbsp;đ</b>
