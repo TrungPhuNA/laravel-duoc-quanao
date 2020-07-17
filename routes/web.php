@@ -25,6 +25,9 @@ Route::group(['namespace' => 'Auth','prefix' => 'thanh-vien'], function(){
 Route::get('/', 'HomeController@index')->name('client.home');
 Route::get('/product/{id}', 'ProductController@detail')->name('client.product_detail');
 Route::get('/contact', 'ContactController@create')->name('client.contact_create');
+Route::get('/about', 'PageController@about')->name('client.about');
+Route::get('/shopping-guide', 'PageController@shoppingGuide')->name('client.shopping_guide');
+Route::get('/policy', 'PageController@policy')->name('client.policy');
 Route::get('/login', 'LoginController@create')->name('client.login_create');
 Route::get('/category_product/{id}', 'ProductCategoryController@detail')->name('client.category_producte_detail');
 
@@ -41,6 +44,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth'])->group(function
     Route::middleware(['is_admin'])->group(function () {
         Route::get('/', 'DashboardController@index')->name('admin.dashboard');
         Route::resource('product', 'ProductController')->except(['show']);
+        Route::resource('order', 'OrdersController');
         Route::resource('category_product', 'CategoryProductController')->except(['show']);
         Route::resource('supplier', 'SuppliersController')->except(['show']);
         Route::resource('information', 'InformationsController')->except(['show']);

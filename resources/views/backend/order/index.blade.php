@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('title') Danh sách Người dùng @endsection
+@section('title') Danh sách đơn hàng @endsection
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -9,41 +9,27 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách Người dùng</h3>
-
-                            <div class="card-tools">
-                                <a class="btn btn-success btn-sm" href="{{ route('order.create') }}"><span
-                                    class="fas fa-plus"></span> Create </a>
-                            </div>
+                            <h3 class="card-title">Danh sách đơn hàng</h3>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap ">
                                 <thead>
                                 <tr>
                                     <th>Stt</th>
+                                    <th>Tên KH</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày tạo</th>
                                 </tr>
                                 </thead>
-                                <tbody>        
-                                @if (!$orders->isEmpty())
+                                <tbody>
+                                @if (!$transactions->isEmpty())
                                     @php $i = 1 @endphp
-                                    @foreach($orders as $or)
+                                    @foreach($transactions as $item)
                                         <tr>
                                             <td>{{ $i }}</td>
-                                            <td>
-                                                <a class="btn btn-primary btn-sm" href="{{ route('order.edit', $or->id) }}">
-                                                    <i class="fas fa-pencil-alt"></i> Sửa
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a id="{{$or->id}}" class="btn btn-danger btn-sm btn-delete" href="#">
-                                                    <i class="fas fa-trash"></i> Xóa
-                                                    <form method="post" action="{{ route('order.destroy', $or->id) }}"
-                                                          id="form_{{$or->id}}">
-                                                      @csrf
-                                                      @method('DELETE')
-                                                    </form>
-                                                </a>
-                                            </td>
+                                            <td>{{ $item->user->name ?? "" }}</td>
+                                            <td>{{ number_format($item->tr_total,0,',','.') }} VNĐ</td>
+                                            <td>{{ $item->created_at }}</td>
                                         </tr>
                                         @php $i++ @endphp
                                     @endforeach
@@ -52,9 +38,9 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        @if($orders->hasPages())
+                        @if($transactions->hasPages())
                           <div class="pagination text-center mb-4">
-                            {{ $orders->links() }}
+                            {{ $transactions->links() }}
                           </div>
                         @endif
                     </div>

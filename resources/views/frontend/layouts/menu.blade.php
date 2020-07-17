@@ -6,32 +6,10 @@
                 <div class="topcatalog">
                     <a class="topcatalog-btn" href="catalog-gallery.html"><span>Tất cả</span></a>
                     <ul class="topcatalog-list">
-                        @if (isset($infor['gioi-thieu']))
-                        <li>
-                            <a href="catalog-gallery.html">
-                                {{ $infor['gioi-thieu']['title'] }}
-                            </a>
-                        </li>
-                        @endif
-                        @if (isset($infor['huong-dan-dat-hang']))
-                        <li>
-                            <a href="catalog-gallery.html">
-                                {{ $infor['huong-dan-dat-hang']['title'] }}
-                            </a>
-                        </li>
-                        @endif
-                        @if (isset($infor['chinh-sach-doi-hang']))
-                        <li>
-                            <a href="catalog-gallery.html">
-                                {{ $infor['chinh-sach-doi-hang']['title'] }}
-                            </a>
-                        </li>
-                        @endif
-                        <li>
-                            <a href="catalog-gallery.html">
-                                Liên hệ
-                            </a>
-                        </li>
+                        <li><a href="{{ route('client.contact_create') }}">Liên hệ</a></li>
+                        <li><a href="{{ route('client.about') }}">Giới thiệu</a></li>
+                        <li><a href="{{ route('client.shopping_guide') }}">Hướng dẫn mua hàng</a></li>
+                        <li><a href="{{ route('client.policy') }}">Chính sách đổi trả</a></li>
                     </ul>
                 </div>
                 <!-- Catalog menu - end -->
